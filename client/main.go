@@ -49,7 +49,7 @@ func writeExchange(body []byte) error {
 		fmt.Println("Error: Failed to convert data")
 	}
 
-	f, err := os.Create("dollar-exchange.txt")
+	f, err := os.Create("cotacao.txt")
 
 	if err != nil {
 		fmt.Println("Error: Failed to create file")

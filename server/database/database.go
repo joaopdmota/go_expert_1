@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 	"server/database/queries"
 	"server/interfaces"
 	"time"
@@ -16,11 +17,19 @@ var db *sql.DB
 var err error
 
 func connectDatabase() (*sql.DB, error) {
-	db, err = sql.Open("sqlite3", ":memory:")
+	log.Println("Creating sqlite-database.db...")
+	file, fError := os.Create("database/sqlite-database.db") // Create SQLite file
+	if fError != nil {
+		log.Fatal(err.Error())
+	}
+	file.Close()
+	log.Println("sqlite-database.db created")
+	db, err = sql.Open("sqlite3", "database/sqlite-database.db")
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Connected to the in memory SQLite database")
+
+	fmt.Println("Connected to SQLite")
 	return db, nil
 }
 
